@@ -61,7 +61,7 @@ body{
     border: 2px solid burlywood;
     background-color: beige;
     font-size: x-large;
-    flex-grow: 5;
+    flex-grow: 5; 
     padding: 1em;
    
 }
@@ -81,3 +81,19 @@ body{
 }
 
 
+@media  (orientation: portrait) {
+
+    .side_div{
+        display: none;
+    }
+    
+}
+
+
+@media  (orientation: landscape) {
+
+    .side_div{
+        display: inline;
+    }
+    
+}
