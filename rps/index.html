@@ -22,15 +22,27 @@
 
 
 
-            .sprite{
-                background: url(css_sprites.png) -180px no-repeat;
+            .sprite,
+            .sprite1,
+            .sprite2,
+            .sprite3{
                 background-color: white !important;
                 height: 300px;
                 width: 300px;
-                
                 margin :3rem;
-  
             }
+
+            .sprite1{
+                background: url(css_sprites.png) -3000px no-repeat !important;
+            }
+            .sprite2{
+                background: url(css_sprites.png) -6300px no-repeat !important;
+            }
+            .sprite3{
+                background: url(css_sprites.png) -9000px no-repeat !important;
+            }
+
+
 
        
 
@@ -55,6 +67,24 @@
                 transition: all 1s ease;
                 scale: 1.2;
             }
+            .mobile{
+                display: none;
+                font-size: 5rem;
+            }
+
+            @media (orientation : portrait){
+                
+                .container{
+                    display: none;
+                }
+                .mobile{
+                    display: block;
+                
+                }   
+                
+                
+
+            }
             
 
         </style>
@@ -64,12 +94,15 @@
 
 
     <body>
-
+        <div class="mobile">Oppss! It seems like you are trying to display this page on portrait mode. You must be on landscape mode to enter this project.  </div>
         <div class="container">
+
             <div data-type="0" class="sprite"></div> 
             <div data-type="11" class="sprite"></div> 
             <div data-type="22" class="sprite"></div> 
         </div>
+
+        <button onclick="touchscreen = true; touch();">touch screen mode</button>
         
       
 
@@ -77,7 +110,7 @@
 
         <script>
             let selected = false
-
+            let touchscreen = false;
 
             sprite = document.querySelectorAll(".sprite");  
             sprites = Array.from(sprite);
@@ -102,7 +135,7 @@
 
             const playAnim = async(e) => {
 
-            if(!selected){
+            if(!selected && !touchscreen){
 
             for(let i = 0 ; i < 11 ; i++ ){
                 
@@ -134,6 +167,14 @@
                 selected = true;
                 
  }
+
+            function touch(){
+
+                document.querySelector("[data-type ='0']").classList.replace('sprite','sprite1');
+                document.querySelector("[data-type ='11']").classList.replace('sprite','sprite2');
+                document.querySelector("[data-type ='22']").classList.replace('sprite','sprite3');
+
+            }
        
         </script>
     </body>
