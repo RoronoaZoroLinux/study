@@ -49,7 +49,11 @@
                 filter: gray; /* IE6-9 */
                 -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
                 filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
-                
+            }
+
+            .selected{
+                transition: all 1s ease;
+                scale: 1.2;
             }
             
 
@@ -73,6 +77,8 @@
 
         <script>
             let selected = false
+
+
             sprite = document.querySelectorAll(".sprite");  
             sprites = Array.from(sprite);
 
@@ -97,21 +103,28 @@
             const playAnim = async(e) => {
 
             if(!selected){
+
             for(let i = 0 ; i < 11 ; i++ ){
+                
             await new Promise(r => setTimeout(r, 35));
+            if(!selected){
              e.target.style.background = `url(css_sprites.png) ${(e.target.dataset.type * 300) + (-300 *i)}px`
+                }
             }
           }
+
         }
 
             function fselected(e){
 
                 if(!selected){
-                    console.log(e.dataset.type);
-                    e.style.scale = "1.3";
+                
+                    e.classList.add("selected");
 
                     sprites.forEach( sp => {
                     if(sp.dataset.type != e.dataset.type){
+                       
+
                         sp.classList.add("gray");
                     }    
                     })
