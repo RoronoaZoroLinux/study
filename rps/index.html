@@ -45,10 +45,11 @@
                 background: url(css_sprites.png) -3000px no-repeat !important;
             }
             .sprite2{
-                background: url(css_sprites.png) -6300px no-repeat !important;
+                background: url(css_sprites.png) -9000px no-repeat !important;
+                
             }
             .sprite3{
-                background: url(css_sprites.png) -9000px no-repeat !important;
+                background: url(css_sprites.png) -6300px no-repeat !important;
             }
 
 
@@ -139,7 +140,7 @@
         
         <div class="container">
 
-            <div data-type="0" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
+            <div data-type="0" data-ss = "0" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
             <div data-type="11" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
             <div data-type="22" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
         </div>
@@ -162,12 +163,18 @@
 
             sprite = document.querySelectorAll(".sprite");  
             sprites = Array.from(sprite);
-
+            
+            let player = 0;
+            let computer = 0;
+            let player_selection;
+            let computer_selection;
+            
             let finger = 0;
         
         const playCounter = async() => {
        let i;
        let j;
+       
        
        if(finger > 4) finger =0;
         switch (finger)
@@ -246,6 +253,7 @@
 
                 if(!selected){
                 
+                    player_selection = e.dataset.type;
                     e.classList.add("selected");
 
                     sprites.forEach( sp => {
@@ -277,7 +285,7 @@
                 } 
 
                 let a = b[0];
-    
+                computer_selection = a;
 
             for(let i = 0 ; i < 11 ; i++ ){
                 
@@ -286,13 +294,42 @@
                     document.querySelector(".box").style.background = `url(css_sprites.png) ${(a * 300) + (-300 *i)}px`
                 }
 
+          // 0 Makas  11 taş 22 kağıt
+          
+
+                if (computer_selection == player_selection){
+                    console.log("draw");
+                }
+                if (computer_selection == 0 && player_selection== 11){
+                    console.log("you win");
+                }
+                if (computer_selection == 11 && player_selection== 0){
+                    console.log("computer win");
+                }
+                if (computer_selection == 11 && player_selection== 22){
+                    console.log("you win");
+                }
+                if (computer_selection == 22 && player_selection== 11){
+                    console.log("computer win");
+                }
+                if (computer_selection == 0 && player_selection== 22){
+                    console.log("computer win");
+                }
+                if (computer_selection == 22 && player_selection== 0){
+                    console.log("you win");
+                }
+
+
+
+                
+
             }
 
             function touch(){
 
-                document.querySelector("[data-type ='0']").classList.replace('sprite','sprite1');
-                document.querySelector("[data-type ='11']").classList.replace('sprite','sprite2');
-                document.querySelector("[data-type ='22']").classList.replace('sprite','sprite3');
+                document.querySelector("[data-ss ='0']").classList.replace('sprite','sprite1');//makas
+                document.querySelector("[data-type ='11']").classList.replace('sprite','sprite2');//taş
+                document.querySelector("[data-type ='22']").classList.replace('sprite','sprite3');//kaıt
 
             }
        
