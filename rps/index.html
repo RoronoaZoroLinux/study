@@ -21,7 +21,12 @@
 
             }
 
-
+            .counter{
+               
+                background: url(sayac.png) 0px;
+                height: 150px;
+                width: 150px;
+            }
 
             .sprite,
             .sprite1,
@@ -31,6 +36,9 @@
                 height: 300px;
                 width: 300px;
                 margin :3rem;
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
             }
 
             .sprite1{
@@ -78,6 +86,17 @@
                 width:  300px;
 
             }
+
+            .choose{
+                color: goldenrod;
+               font-weight: bolder;
+               font-size: 30px;
+                 -webkit-user-select: none; /* Safari */        
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* IE10+/Edge */
+                user-select: none; /* Standard */
+
+            }
             @media (orientation : portrait){
                 
                 .container{
@@ -92,7 +111,7 @@
 
             }
             
-            /*{border:2px solid red}*/
+            /*{border:2px solid red;}*/
 
         </style>
 
@@ -103,23 +122,37 @@
     <body>
         <div class="mobile">Oppss! It seems like you are trying to display this page on portrait mode. You must be on landscape mode to enter this project.  </div>
        
-        <div style="display:flex; justify-content:center;">
-        <div data-type="0" class="box">
+        <div style="display:flex; justify-content:center; gap:100px">
+        <div >
+            <div class="counter" ></div>
+            
+            <div style="font-size: 32px; text-align: center;">You</div> 
+        </div>
+        <div data-type="0" class="box"></div>
+        <div >
+            <div  class="counter" ></div>
+            
+            <div style="font-size: 32px; text-align: center;">Computer</div> 
         </div>
 
         </div> 
         
         <div class="container">
 
-            <div data-type="0" class="sprite"></div> 
-            <div data-type="11" class="sprite"></div> 
-            <div data-type="22" class="sprite"></div> 
+            <div data-type="0" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
+            <div data-type="11" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
+            <div data-type="22" class="sprite"><div class="choose"><div>^</div><div>choose</div></div></div> 
         </div>
 
         <div style="text-align: center;"><button onclick="touchscreen = true; touch();">touch screen mode</button></div>
         <div style="text-align: center ; color :rgba(49, 50, 52, 0.437); font-size: 3rem;">All graphics are rendered in Blender3d</div>
         
-      
+        <button onclick="playCounter(0);  finger++;">counter</button>
+        <button onclick="newRound()">new</button>
+
+        
+
+
 
 
 
@@ -130,6 +163,46 @@
             sprite = document.querySelectorAll(".sprite");  
             sprites = Array.from(sprite);
 
+            let finger = 0;
+        
+        const playCounter = async() => {
+       let i;
+       let j;
+       
+       if(finger > 4) finger =0;
+        switch (finger)
+            {
+                case 0:
+                    i = 0;
+                    j = 40;
+                     break;
+                case 1:
+                    i = 40;
+                    j = 60;
+                     break;
+                case 2:
+                    i = 60;
+                    j = 73;
+                     break;
+                case 3:
+                    i = 73;
+                    j = 80;
+                     break;
+                case 4:
+                    i = 80;
+                    j = 90;
+                     break;
+            }     
+
+        for(; i < j ; i++){
+            
+        await new Promise(r => setTimeout(r, 35));
+       
+         document.querySelector(".counter").style = `background : url(sayac.png) ${(i*-150)}px !important;`
+           
+        }
+        }
+
             function newRound(){
 
                 sprites.forEach( sp => {
@@ -138,12 +211,15 @@
             })
 
             Array.from(document.querySelectorAll("[data-type]")).forEach( a => { 
-                a.style.background =`url(css_sprites.png) ${a.dataset.type *-300}px`; } );
-
+                a.style.background =`url(css_sprites.png) ${a.dataset.type *-300}px`; a.classList.remove("selected" , "gray");} 
+                );
+                
+                selected = false;
             }
+            
 
             newRound();
-
+           
 
       
 
@@ -161,6 +237,10 @@
           }
 
         }
+
+       
+
+
 
             function fselected(e){
 
