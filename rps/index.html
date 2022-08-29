@@ -18,6 +18,7 @@
             body{
                 height: 100vh;
                 min-width: 1024px;
+
             }
 
 
@@ -72,6 +73,11 @@
                 font-size: 5rem;
             }
 
+            .box{
+                height: 300px;
+                width:  300px;
+
+            }
             @media (orientation : portrait){
                 
                 .container{
@@ -86,6 +92,7 @@
 
             }
             
+            /*{border:2px solid red}*/
 
         </style>
 
@@ -95,6 +102,13 @@
 
     <body>
         <div class="mobile">Oppss! It seems like you are trying to display this page on portrait mode. You must be on landscape mode to enter this project.  </div>
+       
+        <div style="display:flex; justify-content:center;">
+        <div data-type="0" class="box">
+        </div>
+
+        </div> 
+        
         <div class="container">
 
             <div data-type="0" class="sprite"></div> 
@@ -102,7 +116,8 @@
             <div data-type="22" class="sprite"></div> 
         </div>
 
-        <button onclick="touchscreen = true; touch();">touch screen mode</button>
+        <div style="text-align: center;"><button onclick="touchscreen = true; touch();">touch screen mode</button></div>
+        <div style="text-align: center ; color :rgba(49, 50, 52, 0.437); font-size: 3rem;">All graphics are rendered in Blender3d</div>
         
       
 
@@ -114,7 +129,6 @@
 
             sprite = document.querySelectorAll(".sprite");  
             sprites = Array.from(sprite);
-
 
             function newRound(){
 
@@ -134,7 +148,7 @@
       
 
             const playAnim = async(e) => {
-
+        
             if(!selected && !touchscreen){
 
             for(let i = 0 ; i < 11 ; i++ ){
@@ -161,12 +175,38 @@
                         sp.classList.add("gray");
                     }    
                     })
-
+                    playResult();
+                    selected = true;
                 }
 
-                selected = true;
+                
                 
  }
+
+            const playResult = async() =>{
+               
+                let b = [11,0,22,22,11,0];
+                
+                for(let i = 0 ; i < 20 ; i++){
+                    let a = Math.floor(Math.random()*3);
+                    let c = Math.floor(Math.random()*3);
+                    let foo = b[a];
+                    b[a] = b[c]
+                    b[c] = foo;
+                        
+                } 
+
+                let a = b[0];
+    
+
+            for(let i = 0 ; i < 11 ; i++ ){
+                
+
+                await new Promise(r => setTimeout(r, 35));
+                    document.querySelector(".box").style.background = `url(css_sprites.png) ${(a * 300) + (-300 *i)}px`
+                }
+
+            }
 
             function touch(){
 
