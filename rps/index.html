@@ -21,7 +21,8 @@
 
             }
 
-            .counter{
+            .counter,
+            .computer_counter{
                
                 background: url(sayac.png) 0px;
                 height: 150px;
@@ -131,7 +132,7 @@
         </div>
         <div data-type="0" class="box"></div>
         <div >
-            <div  class="counter" ></div>
+            <div  class="computer_counter" ></div>
             
             <div style="font-size: 32px; text-align: center;">Computer</div> 
         </div>
@@ -170,32 +171,34 @@
             let computer_selection;
             
             let finger = 0;
+            let computer_finger = 0;
         
-        const playCounter = async() => {
+        const playCounter = async(computer) => {
        let i;
        let j;
-       
-       
-       if(finger > 4) finger =0;
-        switch (finger)
+       let fingy;
+       if (computer == true) fingy = computer_finger;
+       else fingy = finger;
+
+        switch (fingy)
             {
-                case 0:
+                case 1:
                     i = 0;
                     j = 40;
                      break;
-                case 1:
+                case 2:
                     i = 40;
                     j = 60;
                      break;
-                case 2:
+                case 3:
                     i = 60;
                     j = 73;
                      break;
-                case 3:
+                case 4:
                     i = 73;
                     j = 80;
                      break;
-                case 4:
+                case 5:
                     i = 80;
                     j = 90;
                      break;
@@ -204,8 +207,9 @@
         for(; i < j ; i++){
             
         await new Promise(r => setTimeout(r, 35));
-       
-         document.querySelector(".counter").style = `background : url(sayac.png) ${(i*-150)}px !important;`
+        
+        if(computer) document.querySelector(".computer_counter").style = `background : url(sayac.png) ${(i*-150)}px !important;`;
+        else document.querySelector(".counter").style = `background : url(sayac.png) ${(i*-150)}px !important;`;
            
         }
         }
@@ -294,7 +298,7 @@
                     document.querySelector(".box").style.background = `url(css_sprites.png) ${(a * 300) + (-300 *i)}px`
                 }
 
-          // 0 Makas  11 taş 22 kağıt
+      
           
 
                 if (computer_selection == player_selection){
@@ -302,25 +306,36 @@
                 }
                 if (computer_selection == 0 && player_selection== 11){
                     console.log("you win");
+                    finger++;
+                    playCounter(false);
                 }
                 if (computer_selection == 11 && player_selection== 0){
                     console.log("computer win");
+                    computer_finger++;
+                    playCounter(true);
                 }
                 if (computer_selection == 11 && player_selection== 22){
                     console.log("you win");
+                    finger++;
+                    playCounter(false);
                 }
                 if (computer_selection == 22 && player_selection== 11){
                     console.log("computer win");
+                    computer_finger++;
+                    playCounter(true);
                 }
                 if (computer_selection == 0 && player_selection== 22){
                     console.log("computer win");
+                    computer_finger++;
+                    playCounter(true);
                 }
                 if (computer_selection == 22 && player_selection== 0){
                     console.log("you win");
+                    finger++;
+                    playCounter(false);
                 }
-
-
-
+                await new Promise(r => setTimeout(r, 2000));
+                if(finger < 5 && computer_finger < 5) newRound();
                 
 
             }
