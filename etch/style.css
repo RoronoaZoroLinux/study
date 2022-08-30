@@ -1,0 +1,50 @@
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  body{
+    background-color: rgb(115, 115, 115);
+  }
+
+  .box{
+    max-width: 1200px;
+    max-height: 800px; 
+    width: 600px;
+    height: 400px;
+    border: 3px solid;
+    resize: both;
+     overflow: hidden;
+
+  }
+
+  .box::-webkit-resizer {
+    background-color: transparent;
+}
+  .content{
+    height: 80vh;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+  }
+
+
+  .container{
+
+    display: flex;
+    flex-wrap: wrap;
+    height: 800px;
+    width: 1200px;
+    align-content: flex-start;
+
+  }
+
+  .newDiv{
+
+    height : 25px;
+    width : 25px;
+    background-color : white;
+    border : 1px solid dimgray;
+
+}
