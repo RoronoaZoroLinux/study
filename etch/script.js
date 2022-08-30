@@ -13,7 +13,7 @@ function build(){
 
 }
 
-for(let i = 0 ; i < 1800 ; i++ ){
+for(let i = 0 ; i < 2210 ; i++ ){
     
    build(); 
 

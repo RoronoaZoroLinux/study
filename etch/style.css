@@ -9,24 +9,27 @@ html {
   }
 
   .box{
-    max-width: 1200px;
-    max-height: 800px; 
-    width: 600px;
-    height: 400px;
+    max-width: 80vw;
+    max-height: 80vh; 
+    width: 27vw;
+    height: 41vh;
     border: 3px solid;
     resize: both;
      overflow: hidden;
 
   }
-
   .box::-webkit-resizer {
     background-color: transparent;
 }
+
+.horizontal_panel{
+  display: flex;
+}
+
   .content{
     height: 80vh;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
+    display: flex;
+    flex-direction: column;
   }
 
 
@@ -34,9 +37,17 @@ html {
 
     display: flex;
     flex-wrap: wrap;
-    height: 800px;
-    width: 1200px;
+    height: 80vh;
+    width: 80vw; 
+
     align-content: flex-start;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
+            
 
   }
 
@@ -46,5 +57,7 @@ html {
     width : 25px;
     background-color : white;
     border : 1px solid dimgray;
+    display: flex;
+    flex-grow: 1;
 
 }
