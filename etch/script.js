@@ -5,20 +5,23 @@ document.getElementById('btn_black').addEventListener('click' , e=>{ selectedCol
 document.getElementById('btn_eraser').addEventListener('click' , e=>{ selectedColor = 'white'; eraser = true; });
 document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
+document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-
+let mouseMode = false;
 let eraser = false;
 let gridEnabled = true;
 let selectedColor = "black";
 
 let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true);
-document.body.onmouseup = () => (mouseDown = false);
+document.body.onmouseup = () => {mouseDown = false ; if(mouseMode) document.querySelector('.container').style.cursor = 'auto'};
 
 
 function changeColor(e){
     
     if(e.type == "mouseover" && !mouseDown) return;
+    
+    if (mouseMode) document.querySelector('.container').style.cursor =  'none';
 
     if(selectedColor == 'rainbow'){
         

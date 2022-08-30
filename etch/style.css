@@ -15,7 +15,7 @@ html {
     height: 41vh;
     border: 3px solid;
     resize: both;
-     overflow: hidden;
+    overflow: hidden;
 
      
 
@@ -86,7 +86,12 @@ html {
     border : 1px solid dimgray;
     display: flex;
     flex-grow: 1;
+    
 
+}
+
+.newDiv:hover{
+  border : 4px solid rgb(230, 102, 102) !important;
 }
 
 button{
