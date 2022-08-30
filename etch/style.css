@@ -17,9 +17,12 @@ html {
     resize: both;
      overflow: hidden;
 
+     
+
   }
   .box::-webkit-resizer {
     background-color: transparent;
+    
 }
 
 .horizontal_panel{
@@ -34,7 +37,8 @@ html {
 
 
   .container{
-
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-wrap: wrap;
     height: 80vh;
@@ -51,6 +55,29 @@ html {
 
   }
 
+  .toolbox{
+    width: 10vw;
+    height: 80vh;
+    border: 2px solid rgb(123, 123, 123);
+    background-color: rgb(32, 33, 31);
+    display: flex;
+    flex-direction: column;
+    padding: 1vh;
+    gap:0.5vh;
+  }
+
+  .header{
+    max-height: 10vh;
+    min-height: 10vh;
+    width: 90vw;
+    border: 2px solid rgb(164, 59, 59);
+    background-color: rgb(57, 20, 27);
+    display: flex;
+    padding: 1vh;
+    gap:0.5vh;
+    
+  }
+
   .newDiv{
 
     height : 25px;
@@ -60,4 +87,9 @@ html {
     display: flex;
     flex-grow: 1;
 
+}
+
+button{
+  font-size: 2vh;
+  min-width: 5vw;
 }
