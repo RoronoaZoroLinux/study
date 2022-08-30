@@ -21,7 +21,7 @@ html {
 
   }
   .box::-webkit-resizer {
-    background-color: transparent;
+  background-color: transparent;
     
 }
 
@@ -37,14 +37,18 @@ html {
 
 
   .container{
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-wrap: wrap;
+
+    display: grid;
+    grid-template-columns: repeat(25 , 25px) ;
+    grid-template-columns: repeat(80 , 25px);
+
+    align-content:  start;
+    
+   /* overflow: hidden; /* use in resize mode update */
+  
     height: 80vh;
     width: 80vw; 
 
-    align-content: flex-start;
     -webkit-touch-callout: none;
     -webkit-user-select: none; 
      -khtml-user-select: none; 
@@ -84,14 +88,14 @@ html {
     width : 25px;
     background-color : white;
     border : 1px solid dimgray;
-    display: flex;
-    flex-grow: 1;
-    
+    /* transition: all 1s ease !important; */
 
 }
 
 .newDiv:hover{
   border : 4px solid rgb(230, 102, 102) !important;
+  
+  
 }
 
 button{

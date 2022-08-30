@@ -1,4 +1,4 @@
-//newDiv.addEventListener('click' , e=> {e.target.style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`}) 
+//document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = 'blue';
 const continer = document.querySelector('.container');
 document.getElementById('btn_rainbow').addEventListener('click' , e=>{ selectedColor = 'rainbow' ; eraser = false;});
 document.getElementById('btn_black').addEventListener('click' , e=>{ selectedColor = 'black' ; eraser = false;});
@@ -27,21 +27,13 @@ function changeColor(e){
         
         let rgb = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
        
-        if(e.target.dataset.serial % 65 != 0);{
-
-            document.querySelector(`[data-serial = '${e.target.dataset.serial}']`).style.backgroundColor = 'black';
-            document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = 'green';
-            document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(1) }']`).style.backgroundColor = 'red';
-
-        }
-
-   
-        
+            e.target.style.backgroundColor = rgb;
+          
     }
     else{
         if(!eraser){
-        document.querySelector(`[data-serial = '${e.target.dataset.serial}']`).style.backgroundColor = 'black';
-        document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = 'blue';
+        
+        e.target.style.backgroundColor = 'black';
         }
         else{
             e.target.style.backgroundColor = 'white';
@@ -98,7 +90,7 @@ function toggleGrid(){
 
 }
 
-for(let i = 0 ; i < 2220 ; i++ ){
+for(let i = 0 ; i < 80*35 ; i++ ){
     
    build(i); 
 
