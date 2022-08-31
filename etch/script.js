@@ -3,7 +3,7 @@ localStorage.setItem("content", HTML);
 document.write(localStorage['content']);
 */
 //document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = 'blue';
-const continer = document.querySelector('.container');
+const container = document.querySelector('.container');
 document.getElementById('btn_rainbow').addEventListener('click' , e=>{ selectedColor = 'rainbow' ; eraser = false;});
 document.getElementById('btn_black').addEventListener('click' , e=>{ selectedColor = 'black' ; eraser = false;});
 document.getElementById('btn_eraser').addEventListener('click' , e=>{ selectedColor = 'white'; eraser = true; });
@@ -11,19 +11,18 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 30;
-let canvasSizeY = 30;
+let canvasSizeX = 90;
+let canvasSizeY = 50;
 let size_newDiv = 20;
 
-continer.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
-continer.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
+container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
+container.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
 
 
 
 let canvasMaxHeight = `${(parseInt(size_newDiv) * parseInt(canvasSizeY) ) + Number(6)}px `;
 let canvasMaxWidth =  `${(parseInt(size_newDiv) * parseInt(canvasSizeX) ) + Number(6)}px `;
 
-console.log( " x " + canvasSizeX + " y " + canvasSizeY + "size " + size_newDiv);
 
 
 document.querySelector(".box").style.maxHeight = canvasMaxHeight;
@@ -38,6 +37,17 @@ let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => {mouseDown = false ; if(mouseMode) document.querySelector('.container').style.cursor = 'auto'};
 
+function brushSize(e){
+
+    document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX+ 1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX -1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX+ 1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX -1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
+}
 
 function changeColor(e){
     
@@ -50,12 +60,13 @@ function changeColor(e){
         let rgb = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
        
             e.target.style.backgroundColor = rgb;
+            brushSize(e);
           
     }
     else{
         if(!eraser){
         
-        e.target.style.backgroundColor = 'black';
+        e.target.style.backgroundColor = selectedColor;
         }
         else{
             e.target.style.backgroundColor = 'white';
@@ -81,7 +92,7 @@ function build(i){
         newDiv.dataset.serial = i;
         newDiv.style.height = size_newDiv + "px";
         newDiv.style.width = size_newDiv + "px";
-        continer.appendChild(newDiv); 
+        container.appendChild(newDiv); 
         newDiv.addEventListener('click' , changeColor);
         newDiv.addEventListener('mouseover' , changeColor);
 
@@ -96,6 +107,15 @@ function toggleGrid(){
             element.style.border = "hidden";
           } );
 
+          if(document.querySelector('[data-layerid]')) {
+           
+            Array.from(document.querySelectorAll('[data-layerid]')).forEach(cell => {
+
+            cell.style.border ='hidden';
+            
+          })
+         }
+
           gridEnabled = false;
 
        }
@@ -107,6 +127,15 @@ function toggleGrid(){
             element.style.border = "1px solid dimgray";
           } );
 
+          if(document.querySelector('[data-layerid]')) {
+            Array.from(document.querySelectorAll('[data-layerid]')).forEach(cell => {
+
+            cell.style.border ='1px solid green';
+            
+          })
+         }
+
+
           gridEnabled = true;
 
        }
@@ -114,9 +143,21 @@ function toggleGrid(){
 
 }
 
+
+Array.from(document.querySelectorAll('[data-color]')).forEach(cell => {
+
+    cell.style.backgroundColor = cell.dataset.color;
+    cell.addEventListener('click', ()=> {selectedColor = cell.dataset.color});
+    
+})
+
+
+
 for(let i = 0 ; i < canvasSizeX * canvasSizeY ; i++ ){
     
    build(i); 
-   console.log(i)
+   
 
 }
+
+
