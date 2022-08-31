@@ -1,11 +1,51 @@
+let layer_count = 1;
+
+function createLayer(){
+    
+
+    Array.from(document.querySelectorAll('[data-serial]')).forEach(cell => {
+
+
+        cell.setAttribute(`data-layer${layer_count}_value`,`transparent`);
+        
+        
+    })
+   
+    layer_count++;
+}
+
+document.querySelector('#btn_create_layer').addEventListener('click' , createLayer);
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
+
+//  EXPERIMENTAL AREA
+
+/////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 /*var HTML = "index.html"; 
 localStorage.setItem("content", HTML);
 document.write(localStorage['content']);
 */
 //document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = 'blue';
 const container = document.querySelector('.container');
-document.getElementById('btn_rainbow').addEventListener('click' , e=>{ selectedColor = 'rainbow' ; eraser = false;});
-document.getElementById('btn_black').addEventListener('click' , e=>{ selectedColor = 'black' ; eraser = false;});
+let rainbow = false;
+
+document.getElementById('btn_rainbow').addEventListener('click' , e=>{ eraser = false; rainbow=true; changeColorpickScreen() });
+document.getElementById('btn_black').addEventListener('click' , e=>{  eraser = false; rainbow = false; changeColorpickScreen()});
 document.getElementById('btn_eraser').addEventListener('click' , e=>{ selectedColor = 'white'; eraser = true; });
 document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
@@ -49,13 +89,43 @@ function brushSize(e){
     //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX -1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
 }
 
+function changeColorpickScreen(){
+    
+    if(rainbow){
+        
+        document.getElementById('selected_color').style.background =
+        `linear-gradient(180deg, 
+    
+        rgb(${Math.floor(Math.random()*255)},
+        ${Math.floor(Math.random()*255)},
+        ${Math.floor(Math.random()*255)}) 0%,
+         
+        rgb(${Math.floor(Math.random()*255)},
+         ${Math.floor(Math.random()*255)},
+         ${Math.floor(Math.random()*255)}) 60%, 
+         
+         rgb(${Math.floor(Math.random()*255)}
+         ,${Math.floor(Math.random()*255)},
+         ${Math.floor(Math.random()*255)}) 100%)`;
+
+    }
+    else{
+        document.getElementById('selected_color').style.background= '';
+        document.getElementById('selected_color').style.backgroundColor = selectedColor;
+
+    }
+
+    
+}
+
+
 function changeColor(e){
     
     if(e.type == "mouseover" && !mouseDown) return;
     
     if (mouseMode) document.querySelector('.container').style.cursor =  'none';
 
-    if(selectedColor == 'rainbow'){
+    if(rainbow){
         
         let rgb = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
        
@@ -92,6 +162,7 @@ function build(i){
         newDiv.dataset.serial = i;
         newDiv.style.height = size_newDiv + "px";
         newDiv.style.width = size_newDiv + "px";
+        newDiv.setAttribute(`data-layer${layer_count}_value`,"transparent");
         container.appendChild(newDiv); 
         newDiv.addEventListener('click' , changeColor);
         newDiv.addEventListener('mouseover' , changeColor);
@@ -129,7 +200,7 @@ function toggleGrid(){
 Array.from(document.querySelectorAll('[data-color]')).forEach(cell => {
 
     cell.style.backgroundColor = cell.dataset.color;
-    cell.addEventListener('click', ()=> {selectedColor = cell.dataset.color});
+    cell.addEventListener('click', ()=> {selectedColor = cell.dataset.color ; changeColorpickScreen()});
     
 })
 
