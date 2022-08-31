@@ -53,7 +53,7 @@ let rainbow = false;
 
 document.getElementById('btn_rainbow').addEventListener('click' , e=>{ eraser = false; rainbow=true; changeColorpickScreen() });
 document.getElementById('btn_black').addEventListener('click' , e=>{  eraser = false; rainbow = false; changeColorpickScreen()});
-document.getElementById('btn_eraser').addEventListener('click' , e=>{ selectedColor = 'white'; eraser = true; });
+document.getElementById('btn_eraser').addEventListener('click' , e=>{ eraser = true; });
 document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
