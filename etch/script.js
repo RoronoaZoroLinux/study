@@ -11,9 +11,12 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 80;
-let canvasSizeY = 35;
-let size_newDiv = 25;
+let canvasSizeX = 30;
+let canvasSizeY = 30;
+let size_newDiv = 20;
+
+continer.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
+continer.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
 
 
 
@@ -114,5 +117,6 @@ function toggleGrid(){
 for(let i = 0 ; i < canvasSizeX * canvasSizeY ; i++ ){
     
    build(i); 
+   console.log(i)
 
 }

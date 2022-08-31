@@ -51,8 +51,6 @@ html {
   .container{
 
     display: grid;
-    
-    grid-template-columns: repeat(80 , 0fr);
     align-content:  start;
   
    /* overflow: hidden; /* use in resize mode update */
