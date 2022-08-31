@@ -107,7 +107,8 @@ html {
   }
 
 
-  .toolbox{
+  .toolbox,
+  .layerbox{
     width: 10vw;
     height: 80vh;
     border: 0.3vh solid rgb(123, 123, 123);
@@ -119,6 +120,12 @@ html {
     justify-content: space-between;
   }
   
+  .layerbox{
+    height: 100vh;
+    position: absolute;
+    right: 0px; 
+    justify-content: flex-start;
+  }
 
   .header,
   .footer{

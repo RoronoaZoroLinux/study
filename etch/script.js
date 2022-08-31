@@ -12,6 +12,13 @@ function createLayer(){
     })
    
     layer_count++;
+    let newlayer = document.createElement('div');
+
+    newlayer.classList.add('div_button');
+    newlayer.setAttribute('data-layer',layer_count);
+    newlayer.innerText = layer_count;
+    document.querySelector('.layerbox').appendChild(newlayer);
+
 }
 
 document.querySelector('#btn_create_layer').addEventListener('click' , createLayer);
@@ -51,9 +58,9 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 30;
+let canvasSizeX = 40;
 let canvasSizeY = 20;
-let size_newDiv = 20;
+let size_newDiv = 50;
 
 container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
 container.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
