@@ -1,4 +1,4 @@
-let layerid = 0;
+
 let layer_created = false;
 
 document.querySelector('#btn_layer_1').disabled = 'true';
@@ -10,17 +10,8 @@ function createLayer(){
 
     Array.from(document.querySelectorAll('[data-serial]')).forEach(cell => {
 
-        let layer = document.createElement("div");
+        cell.dataset.layerid = cell.dataset.serial;
         
-        layer.dataset.layerid = layerid;
-        layer.style.height = '20px';
-        layer.style.width = '20px'
-        layer.style.margin = '0px';
-       
-        //layer.style.border = '1px solid green'
-       
-        document.querySelector(`[data-serial = "${layerid}" ]`).appendChild(layer);
-        layerid++;
         
     })
    

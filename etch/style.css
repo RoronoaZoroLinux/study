@@ -1,9 +1,15 @@
 html {
     box-sizing: border-box;
   }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
 
+  .newDiv{
+    box-sizing: content-box;
+  }
 
-
+  
 
 
   body{
@@ -139,12 +145,13 @@ html {
 
 
 
-/*
+
 .newDiv:hover{
   border : 4px solid rgb(230, 102, 102) !important;
-  
+  box-sizing: border-box;
+  margin: auto;
 }
-*/
+
 
 button{
   font-size: 2vh;
