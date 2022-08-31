@@ -39,7 +39,7 @@ function selectLayer(e){
 
 e.target.style.backgroundColor = 'goldenrod';
 selectedLayer = e.target.dataset.layer;
-console.log(selectedLayer);
+
 
 Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
     if(button.dataset.layer == selectedLayer)return;
@@ -47,6 +47,14 @@ Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
 
 })
 
+
+Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
+       
+        
+    
+        div.style.backgroundColor = div.getAttribute(`data-layer${selectedLayer}_value`);
+
+} )
 
 }
 
@@ -170,7 +178,7 @@ function changeColor(e){
         e.target.style.backgroundColor = selectedColor;
         
         e.target.setAttribute(`data-layer${selectedLayer}_value`,selectedColor);
-        console.log(e.target.dataset.layer1_value);
+       
 
 
         }
