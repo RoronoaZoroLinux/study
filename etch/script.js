@@ -1,5 +1,5 @@
 let layer_count = 1;
-
+let selectedLayer = 1;
 function createLayer(){
     
 
@@ -11,20 +11,44 @@ function createLayer(){
         
     })
    
-    layer_count++;
-    let newlayer = document.createElement('div');
-
-    newlayer.classList.add('div_button');
-    newlayer.setAttribute('data-layer',layer_count);
-    newlayer.innerText = layer_count;
-    document.querySelector('.layerbox').appendChild(newlayer);
-
+    createLayerButton();
 }
+
+
 
 document.querySelector('#btn_create_layer').addEventListener('click' , createLayer);
 
+    function createLayerButton(){
+        
+        let newlayer = document.createElement('div');
+
+        newlayer.classList.add('div_button');
+        newlayer.setAttribute('data-layer',layer_count);
+        newlayer.innerText ="layer"+ (layer_count);
+        newlayer.addEventListener('click' , selectLayer)
+        document.querySelector('.layerbox').appendChild(newlayer);
+    
+        layer_count++;
+        
+    }
+
+createLayerButton();
+document.querySelector('[data-layer]').style.backgroundColor = 'goldenrod';
+
+function selectLayer(e){
+
+e.target.style.backgroundColor = 'goldenrod';
+selectedLayer = e.target.dataset.layer;
+console.log(selectedLayer);
+
+Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
+    if(button.dataset.layer == selectedLayer)return;
+    button.style.backgroundColor = 'rgb(163, 103, 121)';
+
+})
 
 
+}
 
 
 
@@ -169,7 +193,7 @@ function build(i){
         newDiv.dataset.serial = i;
         newDiv.style.height = size_newDiv + "px";
         newDiv.style.width = size_newDiv + "px";
-        newDiv.setAttribute(`data-layer${layer_count}_value`,"transparent");
+        newDiv.setAttribute(`data-layerl_value`,`transparent`);
         container.appendChild(newDiv); 
         newDiv.addEventListener('click' , changeColor);
         newDiv.addEventListener('mouseover' , changeColor);
@@ -217,7 +241,6 @@ for(let i = 0 ; i < canvasSizeX * canvasSizeY ; i++ ){
     
    build(i); 
    
-
 }
 
 
