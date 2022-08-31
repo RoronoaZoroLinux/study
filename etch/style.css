@@ -4,20 +4,21 @@ html {
   *, *:before, *:after {
     box-sizing: inherit;
   }
+
+
   body{
     background-color: rgb(115, 115, 115);
   }
 
   .box{
-    max-width: 80vw;
-    max-height: 80vh; 
     width: 27vw;
-    height: 41vh;
+    height: 40vh;
     border: 3px solid;
     resize: both;
     overflow: hidden;
 
-     
+    max-width: 3vw;
+    max-height: 3vh;
 
   }
   .box::-webkit-resizer {
@@ -35,19 +36,29 @@ html {
     flex-direction: column;
   }
 
+  .scroll{
+
+    overflow: auto;
+    width: 80vw;
+    height: 80vh;
+    max-width: 80vw;
+    max-height: 80vh;
+    padding-bottom: 5vh;
+    padding-right: 5vh;
+
+  }
 
   .container{
 
     display: grid;
-    grid-template-columns: repeat(25 , 25px) ;
-    grid-template-columns: repeat(80 , 25px);
-
-    align-content:  start;
     
+    grid-template-columns: repeat(80 , 0fr);
+    align-content:  start;
+  
    /* overflow: hidden; /* use in resize mode update */
   
-    height: 80vh;
-    width: 80vw; 
+    max-height: 80vh;
+    max-width: 80vw; 
 
     -webkit-touch-callout: none;
     -webkit-user-select: none; 
@@ -83,18 +94,15 @@ html {
   }
 
   .newDiv{
-
-    height : 25px;
-    width : 25px;
     background-color : white;
     border : 1px solid dimgray;
     /* transition: all 1s ease !important; */
+
 
 }
 
 .newDiv:hover{
   border : 4px solid rgb(230, 102, 102) !important;
-  
   
 }
 
