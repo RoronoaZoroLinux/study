@@ -11,14 +11,13 @@ function createLayer(){
     Array.from(document.querySelectorAll('[data-serial]')).forEach(cell => {
 
         let layer = document.createElement("div");
-        layer.style.backgroundColor = '';
+        
         layer.dataset.layerid = layerid;
         layer.style.height = '20px';
         layer.style.width = '20px'
-        layer.style.margin = '1px'
+        layer.style.margin = '0px';
        
         //layer.style.border = '1px solid green'
-      //  layer.style.padding ='1px'
        
         document.querySelector(`[data-serial = "${layerid}" ]`).appendChild(layer);
         layerid++;
@@ -59,9 +58,3 @@ document.querySelector('#btn_layer_2').addEventListener('click' , e=> {
     document.querySelector('#btn_layer_1').style.border = 'none';
 
 });
-
-Array.from(document.querySelectorAll('[data-color]')).forEach(cell => {
-
-    cell.style.backgroundColor = cell.dataset.color;
-    
-})

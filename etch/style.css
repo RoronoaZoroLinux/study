@@ -1,9 +1,9 @@
 html {
     box-sizing: border-box;
   }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
+
+
+
 
 
   body{
@@ -53,6 +53,7 @@ html {
     display: grid;
     align-content:  start;
   
+    background-color: white;
    /* overflow: hidden; /* use in resize mode update */
   
     max-height: 80vh;
@@ -129,7 +130,7 @@ html {
   }
 
   .newDiv{
-    background-color : white;
+
     border : 1px solid dimgray;
     /* transition: all 1s ease !important; */
 
@@ -148,5 +149,6 @@ html {
 button{
   font-size: 2vh;
   min-width: 5vw;
+  border-radius: 1vh;
 }
 

@@ -11,8 +11,8 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 90;
-let canvasSizeY = 50;
+let canvasSizeX = 30;
+let canvasSizeY = 20;
 let size_newDiv = 20;
 
 container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
@@ -20,8 +20,8 @@ container.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
 
 
 
-let canvasMaxHeight = `${(parseInt(size_newDiv) * parseInt(canvasSizeY) ) + Number(6)}px `;
-let canvasMaxWidth =  `${(parseInt(size_newDiv) * parseInt(canvasSizeX) ) + Number(6)}px `;
+let canvasMaxHeight = `${(parseInt(size_newDiv) * parseInt(canvasSizeY) ) + Number(6)}px`;
+let canvasMaxWidth =  `${(parseInt(size_newDiv) * parseInt(canvasSizeX) ) + Number(6)}px`;
 
 
 
@@ -69,7 +69,7 @@ function changeColor(e){
         e.target.style.backgroundColor = selectedColor;
         }
         else{
-            e.target.style.backgroundColor = 'white';
+            e.target.style.backgroundColor = 'transparent';
         }
     }
 
@@ -107,14 +107,6 @@ function toggleGrid(){
             element.style.border = "hidden";
           } );
 
-          if(document.querySelector('[data-layerid]')) {
-           
-            Array.from(document.querySelectorAll('[data-layerid]')).forEach(cell => {
-
-            cell.style.border ='hidden';
-            
-          })
-         }
 
           gridEnabled = false;
 
@@ -122,19 +114,9 @@ function toggleGrid(){
 
        else{
 
-
         Array.from(document.querySelectorAll('.newDiv')).forEach( element => {
             element.style.border = "1px solid dimgray";
           } );
-
-          if(document.querySelector('[data-layerid]')) {
-            Array.from(document.querySelectorAll('[data-layerid]')).forEach(cell => {
-
-            cell.style.border ='1px solid green';
-            
-          })
-         }
-
 
           gridEnabled = true;
 
