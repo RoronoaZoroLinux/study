@@ -168,6 +168,11 @@ function changeColor(e){
         if(!eraser){
         
         e.target.style.backgroundColor = selectedColor;
+        
+        e.target.setAttribute(`data-layer${selectedLayer}_value`,selectedColor);
+        console.log(e.target.dataset.layer1_value);
+
+
         }
         else{
             e.target.style.backgroundColor = 'transparent';
@@ -193,7 +198,7 @@ function build(i){
         newDiv.dataset.serial = i;
         newDiv.style.height = size_newDiv + "px";
         newDiv.style.width = size_newDiv + "px";
-        newDiv.setAttribute(`data-layerl_value`,`transparent`);
+        newDiv.setAttribute(`data-layer1_value`,`transparent`);
         container.appendChild(newDiv); 
         newDiv.addEventListener('click' , changeColor);
         newDiv.addEventListener('mouseover' , changeColor);
