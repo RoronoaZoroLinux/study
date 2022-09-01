@@ -36,6 +36,7 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         newlayer.setAttribute('data-layer',layer_count);
         newlayer.innerText ="layer"+ (layer_count);
         newlayer.addEventListener('click' , selectLayer);
+        newlayer.addEventListener('dblclick' , e=> e.target.innerText = 'test');
         
         container.appendChild(newlayer);
         container.appendChild(disablelayer);
@@ -80,13 +81,13 @@ function findcolor(div , lc){
             else{
                 
                 div.style.backgroundColor = "transparent";
-                console.log(div.style.backgroundColor)
+                
             }
         }
         else {
-            console.log(a)
+            
             div.style.backgroundColor = a;
-            console.log(div.style.backgroundColor)
+            
         }
 
 
@@ -178,13 +179,13 @@ let rainbow = false;
 
 document.getElementById('btn_rainbow').addEventListener('click' , e=>{ eraser = false; rainbow=true; changeColorpickScreen() });
 document.getElementById('btn_black').addEventListener('click' , e=>{  eraser = false; rainbow = false; changeColorpickScreen()});
-document.getElementById('btn_eraser').addEventListener('click' , e=>{ eraser = true; });
+document.getElementById('btn_eraser').addEventListener('click' , e=>{ eraser = true; rainbow = false; });
 document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 1;
-let canvasSizeY = 1;
+let canvasSizeX = 20;
+let canvasSizeY = 20;
 let size_newDiv = 25;
 
 container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
@@ -263,11 +264,8 @@ function changeColor(e){
             return;
         }
         
-        e.target.style.backgroundColor = selectedColor;
-        
-
         e.target.setAttribute(`data-layer${selectedLayer}_value`,selectedColor);
-       
+       refreshLayer();
 
 
         }
