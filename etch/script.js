@@ -66,11 +66,18 @@ function refreshLayer(){
     
     Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
            
-        div.style.backgroundColor = 'transparent';
+        
+
+            div.style.backgroundColor = 'transparent';
             
+
         for(let i = 0 ; i < selectedLayer ; i++){
-    
-            if(div.getAttribute(`data-layer${Number(i+1)}_value`) != 'transparent') {
+            
+            let a = document.querySelector(`[data-layer${Number(i+1)}_visible]`).getAttribute(`data-layer${Number(i+1)}_visible`);
+            
+            
+            
+            if ( a == "true" && div.getAttribute(`data-layer${Number(i+1)}_value`) != 'transparent') {
                
                 div.style.backgroundColor = 'transparent';
                 div.style.backgroundColor = div.getAttribute(`data-layer${Number(i+1)}_value`);
@@ -101,7 +108,7 @@ e.target.style.backgroundColor = 'green';
 
 }
 
-
+refreshLayer();
 
 
 }
