@@ -50,9 +50,20 @@ Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
 
 Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
        
+    div.style.backgroundColor = 'transparent';
         
-    
-        div.style.backgroundColor = div.getAttribute(`data-layer${selectedLayer}_value`);
+    for(let i = 0 ; i < selectedLayer ; i++){
+
+        if(div.getAttribute(`data-layer${Number(i+1)}_value`) != 'transparent') {
+           
+            div.style.backgroundColor = 'transparent';
+            div.style.backgroundColor = div.getAttribute(`data-layer${Number(i+1)}_value`);
+
+        }
+   
+        
+
+    }
 
 } )
 
