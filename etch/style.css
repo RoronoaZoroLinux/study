@@ -224,3 +224,19 @@ border: 0.4vh solid black;
   font-size: 1.5vh;
 
 }
+
+.disablelayer{
+
+  width: 3vh;
+  height: 4vh;
+  background-color: green;
+  border: 2px solid green;
+
+}
+
+.layercontainer{
+
+  display: flex;
+  
+
+}

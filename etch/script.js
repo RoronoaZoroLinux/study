@@ -20,13 +20,26 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
 
     function createLayerButton(){
         
+        let container = document.createElement('div');
         let newlayer = document.createElement('div');
+        let disablelayer = document.createElement('div');
+
+        container.classList.add('layercontainer');
+        
+        disablelayer.classList.add('disablelayer');
+        disablelayer.setAttribute(`data-layer${layer_count}_visible` , "true");
+        disablelayer.setAttribute('data-toggle',layer_count);
+        disablelayer.addEventListener('click', toggleLayer);
 
         newlayer.classList.add('div_button');
         newlayer.setAttribute('data-layer',layer_count);
         newlayer.innerText ="layer"+ (layer_count);
-        newlayer.addEventListener('click' , selectLayer)
-        document.querySelector('.layerbox').appendChild(newlayer);
+        newlayer.addEventListener('click' , selectLayer);
+        
+        container.appendChild(newlayer);
+        container.appendChild(disablelayer);
+
+        document.querySelector('.layerbox').appendChild(container);
     
         layer_count++;
         
@@ -60,17 +73,31 @@ Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
             div.style.backgroundColor = div.getAttribute(`data-layer${Number(i+1)}_value`);
 
         }
-   
-        
-
     }
 
 } )
-
 }
 
 
+function toggleLayer(e){
 
+let layer  = e.target.getAttribute('data-toggle');
+let check = e.target.getAttribute(`data-layer${layer}_visible`);
+
+console.log(layer)
+console.log(check)
+
+if(check == "true"){
+e.target.setAttribute(`data-layer${layer}_visible` , "false");
+e.target.style.backgroundColor = 'black';
+}
+else if(check == "false"){
+e.target.setAttribute(`data-layer${layer}_visible` , "true");
+e.target.style.backgroundColor = 'green';
+
+}
+
+}
 
 
 
