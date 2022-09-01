@@ -8,7 +8,7 @@ function createLayer(){
 
 
         cell.setAttribute(`data-layer${layer_count}_value`,`transparent`);
-        
+        cell.setAttribute(`data-l${layer_count}_h`,`false`);
         
     })
    
@@ -64,21 +64,33 @@ Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
 }
 
 
-function recursive(div , lc){
+function findcolor(div , lc){
     
     let a = div.getAttribute(`data-layer${lc}_value`);
-    if(a == null) return;
-    console.log(a)
-
-
-    if(a == 'transparent'){
-
-        recursive(div , lc - 1 )
-    }
-    else{
-        return a;
-    }
+    let b = div.getAttribute(`data-l${lc}_h`);
     
+  
+        if( a == 'transparent' || b == 'true' ){
+       
+            if((lc - 1) > 0){
+
+            findcolor(div , (lc - 1) )
+
+            }
+            else{
+                
+                div.style.backgroundColor = "transparent";
+                console.log(div.style.backgroundColor)
+            }
+        }
+        else {
+            console.log(a)
+            div.style.backgroundColor = a;
+            console.log(div.style.backgroundColor)
+        }
+
+
+ 
 
 }
 
@@ -86,10 +98,13 @@ function refreshLayer(){
 
 
     Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
-           
-                recursive(div,layer_count-1);
+        
+                div.style.backgroundColor = 'transparent';
+                findcolor(div,(layer_count-1));
+                 
 
-
+    });
+/*
 
                 if(document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
 
@@ -113,24 +128,25 @@ function refreshLayer(){
         }
     
     } )
+    */
 
 }
-
 
 function toggleLayer(e){
 
 let layer  = e.target.getAttribute('data-toggle');
 let check = e.target.getAttribute(`data-layer${layer}_visible`);
 
-console.log(layer)
-console.log(check)
+let divs = Array.from(document.querySelectorAll('.newDiv')) ;
 
 if(check == "true"){
 e.target.setAttribute(`data-layer${layer}_visible` , "false");
+divs.forEach( div => { div.setAttribute(`data-l${layer}_h`, 'true') ;})
 e.target.style.backgroundColor = 'black';
 }
 else if(check == "false"){
 e.target.setAttribute(`data-layer${layer}_visible` , "true");
+divs.forEach( div => { div.setAttribute(`data-l${layer}_h`, 'false') ;})
 e.target.style.backgroundColor = 'green';
 
 }
@@ -143,9 +159,7 @@ refreshLayer();
 
 
 /////////////////////////////////////////////////////////
-
-//  EXPERIMENTAL AREA
-
+//             EXPERIMENTAL AREA                       //
 /////////////////////////////////////////////////////////
 
 
@@ -169,9 +183,9 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 40;
-let canvasSizeY = 20;
-let size_newDiv = 50;
+let canvasSizeX = 1;
+let canvasSizeY = 1;
+let size_newDiv = 25;
 
 container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
 container.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
@@ -283,6 +297,7 @@ function build(i){
         newDiv.style.height = size_newDiv + "px";
         newDiv.style.width = size_newDiv + "px";
         newDiv.setAttribute(`data-layer1_value`,`transparent`);
+        newDiv.setAttribute(`data-l1_h`,`false`); 
         container.appendChild(newDiv); 
         newDiv.addEventListener('click' , changeColor);
         newDiv.addEventListener('mouseover' , changeColor);
@@ -333,4 +348,4 @@ for(let i = 0 ; i < canvasSizeX * canvasSizeY ; i++ ){
 }
 
 
-console.log(Math.max(Array.from(document.querySelectorAll('[data-serial]'))));
+
