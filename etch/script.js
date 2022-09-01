@@ -1,3 +1,5 @@
+//document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'
+
 let layer_count = 1;
 let selectedLayer = 1;
 function createLayer(){
@@ -52,23 +54,32 @@ function selectLayer(e){
 
 e.target.style.backgroundColor = 'goldenrod';
 selectedLayer = e.target.dataset.layer;
+
+Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
+    if(button.dataset.layer == selectedLayer)return;
+    button.style.backgroundColor = 'rgb(163, 103, 121)';
+
+})
+
 refreshLayer();
 }
 
 function refreshLayer(){
 
-    Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
-        if(button.dataset.layer == selectedLayer)return;
-        button.style.backgroundColor = 'rgb(163, 103, 121)';
-    
-    })
-    
+
+
+
     
     Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
            
         
+        if(document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
 
             div.style.backgroundColor = 'transparent';
+        
+        }
+    
+        
             
 
         for(let i = 0 ; i < selectedLayer ; i++){
@@ -226,6 +237,13 @@ function changeColor(e){
     }
     else{
         if(!eraser){
+        
+          
+        if( document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
+
+            //alert('you cant draw on a hidden layer')
+            return;
+        }
         
         e.target.style.backgroundColor = selectedColor;
         
