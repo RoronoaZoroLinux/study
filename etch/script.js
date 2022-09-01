@@ -1,5 +1,4 @@
 //document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'
-
 let layer_count = 1;
 let selectedLayer = 1;
 function createLayer(){
@@ -61,31 +60,48 @@ Array.from(document.querySelectorAll('[data-layer]')).forEach( button => {
 
 })
 
-refreshLayer();
+//refreshLayer();
+}
+
+
+function recursive(div , lc){
+    
+    let a = div.getAttribute(`data-layer${lc}_value`);
+    if(a == null) return;
+    console.log(a)
+
+
+    if(a == 'transparent'){
+
+        recursive(div , lc - 1 )
+    }
+    else{
+        return a;
+    }
+    
+
 }
 
 function refreshLayer(){
 
 
-
-
-    
     Array.from(document.querySelectorAll('[data-serial]')).forEach( div => {
            
-        
-        if(document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
+                recursive(div,layer_count-1);
 
-            div.style.backgroundColor = 'transparent';
-        
-        }
-    
-        
+
+
+                if(document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
+
+                    div.style.backgroundColor = 'transparent';
+                
+                }
+
             
 
         for(let i = 0 ; i < selectedLayer ; i++){
             
             let a = document.querySelector(`[data-layer${Number(i+1)}_visible]`).getAttribute(`data-layer${Number(i+1)}_visible`);
-            
             
             
             if ( a == "true" && div.getAttribute(`data-layer${Number(i+1)}_value`) != 'transparent') {
@@ -179,17 +195,6 @@ let mouseDown = false
 document.body.onmousedown = () => (mouseDown = true);
 document.body.onmouseup = () => {mouseDown = false ; if(mouseMode) document.querySelector('.container').style.cursor = 'auto'};
 
-function brushSize(e){
-
-    document.querySelector(`[data-serial = '${e.target.dataset.serial -1}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX+ 1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) - Number(canvasSizeX -1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX+ 1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-    //document.querySelector(`[data-serial = '${Number(e.target.dataset.serial) + Number(canvasSizeX -1)}']`).style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
-}
 
 function changeColorpickScreen(){
     
@@ -231,8 +236,8 @@ function changeColor(e){
         
         let rgb = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`;
        
-            e.target.style.backgroundColor = rgb;
-            brushSize(e);
+        e.target.setAttribute(`data-layer${selectedLayer}_value`,rgb);
+        refreshLayer();
           
     }
     else{
@@ -240,20 +245,21 @@ function changeColor(e){
         
           
         if( document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
-
             //alert('you cant draw on a hidden layer')
             return;
         }
         
         e.target.style.backgroundColor = selectedColor;
         
+
         e.target.setAttribute(`data-layer${selectedLayer}_value`,selectedColor);
        
 
 
         }
         else{
-            e.target.style.backgroundColor = 'transparent';
+            e.target.setAttribute(`data-layer${selectedLayer}_value`,'transparent');
+            refreshLayer();
         }
     }
 
@@ -264,9 +270,9 @@ function changeColor(e){
 function clear(){
 
     Array.from(document.querySelectorAll('.newDiv')).forEach( element => {
-        element.style.backgroundColor= "white";
+        element.setAttribute(`data-layer${selectedLayer}_value`,'transparent')
       } );
-
+      refreshLayer();
 }
 
 function build(i){
@@ -327,3 +333,4 @@ for(let i = 0 ; i < canvasSizeX * canvasSizeY ; i++ ){
 }
 
 
+console.log(Math.max(Array.from(document.querySelectorAll('[data-serial]'))));
