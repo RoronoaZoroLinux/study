@@ -1,4 +1,3 @@
-//document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'
 let layer_count = 1;
 let selectedLayer = 1;
 function createLayer(){
@@ -78,12 +77,87 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
     }
 
 function layerup(e){
-   
-    if(e.target.dataset.updown < 2){
-        console.log("i cant do that");
+    
+    let clickedlayer = e.target.dataset.updown;
+    let this_index;
+    let layers = Array.from(document.querySelectorAll('[data-lcont]'));
+    
+    layers.forEach( function find(layer , index) {
 
+        if(layer.dataset.lcont == clickedlayer){
+            this_index = index;
+        }
+    });
+   
+    
+    if(this_index == 0) {
+        console.log(this_index)
+        return;
     }
 
+    let target_index = this_index-1;
+    let this_layer = layers[this_index];
+    let target_layer = layers[target_index]
+    
+    //get this layer
+    ///////////////////////////////////////////////////////////////////////
+    
+    let thisnum = this_layer.dataset.lcont;
+    let thisname = this_layer.querySelector(".div_layer_button").innerText;
+    let thisbool = this_layer.querySelector(".disablelayer").getAttribute(`data-layer${clickedlayer}_visible`);
+
+    ///////////////////////////////////////////////////////////////
+
+    //get target layer 
+    
+    let targetnum  = target_layer.dataset.lcont;
+    let targetname = target_layer.querySelector(".div_layer_button").innerText;
+    let targetbool = target_layer.querySelector(".disablelayer").getAttribute(`data-layer${targetnum}_visible`);
+
+    ////////////////////////////////////////
+    //set this layer
+
+    this_layer.dataset.lcont = targetnum;
+    this_layer.querySelector(".div_layer_button").innerText = targetname;
+    this_layer.querySelector(".div_layer_button").dataset.layer = targetnum;
+    this_layer.querySelector(".disablelayer").setAttribute(`data-layer${targetnum}_visible` ,targetbool);
+    this_layer.querySelector(".disablelayer").dataset.toggle = targetnum;
+    this_layer.querySelector(".deletelayer").dataset.delete = targetnum;
+    this_layer.querySelector(".up").dataset.updown = targetnum;
+
+    
+    ////////////////////////////////////////
+    //set target layer
+
+    target_layer.dataset.lcont = thisnum;
+    target_layer.querySelector(".div_layer_button").innerText = thisname;
+    target_layer.querySelector(".div_layer_button").dataset.layer = thisnum; 
+    target_layer.querySelector(".disablelayer").setAttribute(`data-layer${clickedlayer}_visible`, thisbool);  
+    target_layer.querySelector(".disablelayer").dataset.toggle = thisnum; 
+    target_layer.querySelector(".deletelayer").dataset.delete = thisnum; 
+    this_layer.querySelector(".up").dataset.updown = thisnum; 
+
+    /////////////////////////////////////
+    // cahnge blocks
+
+    let divs = Array.from(document.querySelectorAll(".newDiv"));
+    
+    divs.forEach( div => {
+
+        let this1 = div.getAttribute(`data-layer${clickedlayer}_value`);
+        let this2 = div.getAttribute(`data-l${clickedlayer}_h`);
+        let target1 = div.getAttribute(`data-layer${targetnum}_value`);
+        let target2 = div.getAttribute(`data-l${targetnum}_h`);
+        
+        div.setAttribute(`data-layer${clickedlayer}_value` , target1);
+        div.setAttribute(`data-l${clickedlayer}_h` , target2);
+        
+        div.setAttribute(`data-layer${targetnum}_value` , this1);
+        div.setAttribute(`data-l${targetnum}_h` , this2);
+
+    })
+
+    refreshLayer();
 }
 function layerdown(e){
 
@@ -170,31 +244,7 @@ function refreshLayer(){
                  
 
     });
-/*
 
-                if(document.querySelector(`[data-toggle="${selectedLayer}"]`).getAttribute(`data-layer${selectedLayer}_visible`)  == 'false'){
-
-                    div.style.backgroundColor = 'transparent';
-                
-                }
-
-            
-
-        for(let i = 0 ; i < selectedLayer ; i++){
-            
-            let a = document.querySelector(`[data-layer${Number(i+1)}_visible]`).getAttribute(`data-layer${Number(i+1)}_visible`);
-            
-            
-            if ( a == "true" && div.getAttribute(`data-layer${Number(i+1)}_value`) != 'transparent') {
-               
-                div.style.backgroundColor = 'transparent';
-                div.style.backgroundColor = div.getAttribute(`data-layer${Number(i+1)}_value`);
-    
-            }
-        }
-    
-    } )
-    */
 
 }
 
