@@ -24,13 +24,16 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         let container = document.createElement('div');
         let newlayer = document.createElement('div');
         let disablelayer = document.createElement('div');
-        
+        let deletelayer = document.createElement('div');
+
         let up = document.createElement('div');
         let down = document.createElement('div');
         let udc = document.createElement('div');
 
-        up.classList.add('updown');
-        down.classList.add('updown');
+        up.classList.add('up');
+        up.dataset.updown = layer_count;
+        up.dataset.updown = layer_count;
+        down.classList.add('down');
         udc.classList.add('udc');
 
         up.addEventListener('click' , layerup );
@@ -46,12 +49,16 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         disablelayer.setAttribute('data-toggle',layer_count);
         disablelayer.addEventListener('click', toggleLayer);
 
+        deletelayer.classList.add('deletelayer');
+        deletelayer.setAttribute(`data-delete` , `${layer_count}`);
+        deletelayer.addEventListener('click' , f_deletelayer)
+
         newlayer.classList.add('div_layer_button');
         newlayer.setAttribute('data-layer',layer_count);
         newlayer.innerText ="layer"+ (layer_count);
         newlayer.addEventListener('click' , selectLayer);
         newlayer.addEventListener('dblclick' , e=>{ 
-            let foo = prompt("Change Layer Name: ");
+            let foo = prompt("Change Layer Name: " , e.target.innerText);
             if ( foo.trim().length === 0 ){
                foo = `layer${selectedLayer}`;
             }
@@ -60,6 +67,7 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         
         container.appendChild(newlayer);
         container.appendChild(disablelayer);
+        container.appendChild(deletelayer);
         container.appendChild(udc);
 
         document.querySelector('.layerbox').appendChild(container);
@@ -68,13 +76,17 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         
     }
 
-function layerup(){
-
+function layerup(e){
+    
 
 }
-function layerdown(){
+function layerdown(e){
 
     
+}
+function f_deletelayer(e){
+prompt("are you sure ? ")
+
 }
 
 

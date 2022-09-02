@@ -162,7 +162,7 @@ html {
   border : 4px solid rgb(230, 102, 102) !important;
   box-sizing: border-box;
   margin: auto;
-  border-radius: 2px;
+
 }
 
 
@@ -188,7 +188,6 @@ background-color: orange;
   justify-content: center;
   align-items: center;
   display: flex;
-  
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -239,7 +238,16 @@ background-color: orange;
   
 }
 
-.updown{
+.deletelayer{
+  width: 3vh;
+  height: 4vh;
+  background-color: rgb(128, 0, 0);
+  border: 0.3vh solid rgb(128, 0, 0);
+
+}
+
+.up,
+.down{
   width: 3vh;
   height: 1.8vh;
   background-color: rgb(162, 152, 176);
@@ -247,7 +255,8 @@ background-color: orange;
   
 }
 
-.updown:hover{
+.up:hover,
+.down:hover{
   
   background-color: rgb(255, 255, 255);
   
@@ -270,8 +279,8 @@ background-color: orange;
   background-color:rgb(163, 103, 121);
   justify-content: center;
   align-items: center;
-  
   overflow: hidden;
   text-overflow: ellipsis;
 
 }
+
