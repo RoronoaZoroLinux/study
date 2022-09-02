@@ -32,7 +32,7 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
 
         up.classList.add('up');
         up.dataset.updown = layer_count;
-        up.dataset.updown = layer_count;
+        down.dataset.updown = layer_count;
         down.classList.add('down');
         udc.classList.add('udc');
 
@@ -43,6 +43,7 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         udc.appendChild(down);
 
         container.classList.add('layercontainer');
+        container.dataset.lcont = layer_count;
         
         disablelayer.classList.add('disablelayer');
         disablelayer.setAttribute(`data-layer${layer_count}_visible` , "true");
@@ -77,15 +78,25 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
     }
 
 function layerup(e){
-    
+   
+    if(e.target.dataset.updown < 2){
+        console.log("i cant do that");
+
+    }
 
 }
 function layerdown(e){
 
     
+    if(e.target.dataset.updown == layer_count-1){
+        console.log("too down");
+
+    }
 }
 function f_deletelayer(e){
-prompt("are you sure ? ")
+    let layerbox = document.querySelector(".layerbox");
+    layerbox.removeChild(layerbox.querySelector(`[data-lcont = '${e.target.dataset.delete}']`))
+    //prompt("are you sure ? ")
 
 }
 
