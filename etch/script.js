@@ -94,8 +94,17 @@ function layerdown(e){
     }
 }
 function f_deletelayer(e){
+    let a = e.target.dataset.delete;
     let layerbox = document.querySelector(".layerbox");
     layerbox.removeChild(layerbox.querySelector(`[data-lcont = '${e.target.dataset.delete}']`))
+    
+    Array.from(document.querySelectorAll(".newDiv")).forEach( div => {
+        div.removeAttribute(`data-layer${a}_value`);
+        div.removeAttribute(`data-l${a}_h`);
+
+
+    })
+    refreshLayer();
     //prompt("are you sure ? ")
 
 }
@@ -124,8 +133,10 @@ function findcolor(div , lc){
     let a = div.getAttribute(`data-layer${lc}_value`);
     let b = div.getAttribute(`data-l${lc}_h`);
     
-  
-        if( a == 'transparent' || b == 'true' ){
+
+
+
+        if( a == 'transparent' || b == 'true' || a == null){
        
             if((lc - 1) > 0){
 
