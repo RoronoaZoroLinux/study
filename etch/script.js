@@ -77,8 +77,8 @@ function createLayerButton(){
         
     }
     
-    function create_change_layer(num , name ,bool){
-        
+    function create_change_layer(num , name ,bool ,appendindex){
+        console.log(appendindex);
         let container = document.createElement('div');
         let newlayer = document.createElement('div');
         let disablelayer = document.createElement('div');
@@ -129,8 +129,8 @@ function createLayerButton(){
         container.appendChild(deletelayer);
         container.appendChild(udc);
     
-        document.querySelector('.layerbox').appendChild(container);
-    
+        let append = document.querySelector(`[data-lcont = "${appendindex}"]`);
+        append.after(container);
         
     }
     function layerup(e){
@@ -153,7 +153,8 @@ function createLayerButton(){
     }
 
     let target_index = this_index-1;
-    
+    let ap1 = layers[this_index-2];
+    let apnum = ap1.dataset.lcont;
     let this_layer = layers[this_index];
     let target_layer = layers[target_index]
 
@@ -220,12 +221,13 @@ function createLayerButton(){
     document.querySelector(".layerbox").removeChild(document.querySelector(`[data-lcont = '${targetnum}']`));
   
 
-   create_change_layer(thisnum,thisname,thisbool);
-   create_change_layer(targetnum,targetname,targetbool);
-
+    create_change_layer(thisnum,thisname,thisbool,apnum);
+    create_change_layer(targetnum,targetname,targetbool,thisnum);
    
     refreshLayer();
 }    
+
+
 function layerdown(e){
     
     
