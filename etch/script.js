@@ -18,44 +18,103 @@ function createLayer(){
 
 document.querySelector('#btn_create_layer').addEventListener('click' , createLayer);
 
-    function createLayerButton(){
+
+function createLayerButton(){
         
-        let container = document.createElement('div');
-        let newlayer = document.createElement('div');
-        let disablelayer = document.createElement('div');
-        let deletelayer = document.createElement('div');
-
-        let up = document.createElement('div');
-        let down = document.createElement('div');
-        let udc = document.createElement('div');
-
-        up.classList.add('up');
-        up.dataset.updown = layer_count;
-        down.dataset.updown = layer_count;
-        down.classList.add('down');
-        udc.classList.add('udc');
-
-        up.addEventListener('click' , layerup );
-        down.addEventListener('click' , layerdown );
-
-        udc.appendChild(up);
-        udc.appendChild(down);
-
-        container.classList.add('layercontainer');
+    let container = document.createElement('div');
+    let newlayer = document.createElement('div');
+    let disablelayer = document.createElement('div');
+    let deletelayer = document.createElement('div');
+    
+    let up = document.createElement('div');
+    let down = document.createElement('div');
+    let udc = document.createElement('div');
+    
+    up.classList.add('up');
+    up.dataset.updown = layer_count;
+    down.dataset.updown = layer_count;
+    down.classList.add('down');
+    udc.classList.add('udc');
+    
+    up.addEventListener('click' , layerup );
+    down.addEventListener('click' , layerdown );
+    
+    udc.appendChild(up);
+    udc.appendChild(down);
+    
+    container.classList.add('layercontainer');
         container.dataset.lcont = layer_count;
         
         disablelayer.classList.add('disablelayer');
         disablelayer.setAttribute(`data-layer${layer_count}_visible` , "true");
         disablelayer.setAttribute('data-toggle',layer_count);
         disablelayer.addEventListener('click', toggleLayer);
-
+        
         deletelayer.classList.add('deletelayer');
         deletelayer.setAttribute(`data-delete` , `${layer_count}`);
         deletelayer.addEventListener('click' , f_deletelayer)
-
+        
         newlayer.classList.add('div_layer_button');
         newlayer.setAttribute('data-layer',layer_count);
         newlayer.innerText ="layer"+ (layer_count);
+        newlayer.addEventListener('click' , selectLayer);
+        newlayer.addEventListener('dblclick' , e=>{ 
+            let foo = prompt("Change Layer Name: " , e.target.innerText);
+            if ( foo.trim().length === 0 ){
+                foo = `layer${selectedLayer}`;
+            }
+            e.target.innerText = foo.toLowerCase();
+        });
+        
+        container.appendChild(newlayer);
+        container.appendChild(disablelayer);
+        container.appendChild(deletelayer);
+        container.appendChild(udc);
+        
+        document.querySelector('.layerbox').appendChild(container);
+        
+        layer_count++;
+        
+    }
+    
+    function create_change_layer(num , name ,bool){
+        
+        let container = document.createElement('div');
+        let newlayer = document.createElement('div');
+        let disablelayer = document.createElement('div');
+        let deletelayer = document.createElement('div');
+    
+        let up = document.createElement('div');
+        let down = document.createElement('div');
+        let udc = document.createElement('div');
+    
+        up.classList.add('up');
+        up.dataset.updown = num;
+        down.dataset.updown = num;
+        down.classList.add('down');
+        udc.classList.add('udc');
+    
+        up.addEventListener('click' , layerup );
+        down.addEventListener('click' , layerdown );
+    
+        udc.appendChild(up);
+        udc.appendChild(down);
+    
+        container.classList.add('layercontainer');
+        container.dataset.lcont = num;
+        
+        disablelayer.classList.add('disablelayer');
+        disablelayer.setAttribute(`data-layer${num}_visible` , `${bool}`);
+        disablelayer.setAttribute('data-toggle',num);
+        disablelayer.addEventListener('click', toggleLayer);
+    
+        deletelayer.classList.add('deletelayer');
+        deletelayer.setAttribute(`data-delete` , `${num}`);
+        deletelayer.addEventListener('click' , f_deletelayer)
+    
+        newlayer.classList.add('div_layer_button');
+        newlayer.setAttribute('data-layer',num);
+        newlayer.innerText =name;
         newlayer.addEventListener('click' , selectLayer);
         newlayer.addEventListener('dblclick' , e=>{ 
             let foo = prompt("Change Layer Name: " , e.target.innerText);
@@ -69,26 +128,24 @@ document.querySelector('#btn_create_layer').addEventListener('click' , createLay
         container.appendChild(disablelayer);
         container.appendChild(deletelayer);
         container.appendChild(udc);
-
+    
         document.querySelector('.layerbox').appendChild(container);
     
-        layer_count++;
         
     }
-
-function layerup(e){
-    
+    function layerup(e){
+        
     let clickedlayer = e.target.dataset.updown;
     let this_index;
     let layers = Array.from(document.querySelectorAll('[data-lcont]'));
     
     layers.forEach( function find(layer , index) {
-
+        
         if(layer.dataset.lcont == clickedlayer){
             this_index = index;
         }
     });
-   
+    
     
     if(this_index == 0) {
         console.log(this_index)
@@ -96,8 +153,11 @@ function layerup(e){
     }
 
     let target_index = this_index-1;
+    
     let this_layer = layers[this_index];
     let target_layer = layers[target_index]
+
+
     
     //get this layer
     ///////////////////////////////////////////////////////////////////////
@@ -116,7 +176,7 @@ function layerup(e){
 
     ////////////////////////////////////////
     //set this layer
-
+    //crthis = document.createElement("div");
     this_layer.dataset.lcont = targetnum;
     this_layer.querySelector(".div_layer_button").innerText = targetname;
     this_layer.querySelector(".div_layer_button").dataset.layer = targetnum;
@@ -156,17 +216,25 @@ function layerup(e){
         div.setAttribute(`data-l${targetnum}_h` , this2);
 
     })
+    document.querySelector(".layerbox").removeChild(document.querySelector(`[data-lcont = '${clickedlayer}']`));
+    document.querySelector(".layerbox").removeChild(document.querySelector(`[data-lcont = '${targetnum}']`));
+  
 
+   create_change_layer(thisnum,thisname,thisbool);
+   create_change_layer(targetnum,targetname,targetbool);
+
+   
     refreshLayer();
-}
+}    
 function layerdown(e){
-
+    
     
     if(e.target.dataset.updown == layer_count-1){
         console.log("too down");
-
+        
     }
 }
+
 function f_deletelayer(e){
     let a = e.target.dataset.delete;
     let layerbox = document.querySelector(".layerbox");
@@ -179,7 +247,6 @@ function f_deletelayer(e){
 
     })
     refreshLayer();
-    //prompt("are you sure ? ")
 
 }
 
@@ -299,9 +366,9 @@ document.getElementById('btn_grid').addEventListener('click', toggleGrid);
 document.getElementById('btn_clear').addEventListener('click', clear);
 document.getElementById('btn_mouseMode').addEventListener('click' , e=>{ if(mouseMode) mouseMode =false; else{mouseMode = true;} });
 
-let canvasSizeX = 20;
-let canvasSizeY = 20;
-let size_newDiv = 25;
+let canvasSizeX = 50;
+let canvasSizeY = 10;
+let size_newDiv = 20;
 
 container.style.gridTemplateColumns = `repeat(${canvasSizeX} , 0fr)`
 container.style.gridTemplateRows = `repeat(${canvasSizeY} , 0fr)`
