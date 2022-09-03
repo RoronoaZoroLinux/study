@@ -78,7 +78,7 @@ function createLayerButton(){
     }
     
     function create_change_layer(num , name ,bool ,appendindex){
-        console.log(appendindex);
+        
         let container = document.createElement('div');
         let newlayer = document.createElement('div');
         let disablelayer = document.createElement('div');
@@ -128,9 +128,24 @@ function createLayerButton(){
         container.appendChild(disablelayer);
         container.appendChild(deletelayer);
         container.appendChild(udc);
-    
-        let append = document.querySelector(`[data-lcont = "${appendindex}"]`);
-        append.after(container);
+        
+        if(appendindex == "error"){
+            if(Array.from(document.querySelectorAll(".layercontainer").length > 2)){
+
+                document.querySelector("#btn_create_layer").after(container);
+            }
+            else{
+
+                document.querySelector(".layerbox").appendChild(container);
+            }
+            
+        }
+        else{
+
+            let append = document.querySelector(`[data-lcont = "${appendindex}"]`);
+            append.after(container);
+
+        }
         
     }
     function layerup(e){
@@ -148,13 +163,22 @@ function createLayerButton(){
     
     
     if(this_index == 0) {
-        console.log(this_index)
         return;
     }
 
     let target_index = this_index-1;
-    let ap1 = layers[this_index-2];
-    let apnum = ap1.dataset.lcont;
+    let ap1;
+    let apnum;
+
+    if( layers[this_index-2] != null || layers[this_index-2] != undefined){
+        ap1 = layers[this_index-2];
+        apnum = ap1.dataset.lcont;
+    }
+    else{
+        ap1 = "error";
+        apnum = "error";
+    }
+
     let this_layer = layers[this_index];
     let target_layer = layers[target_index]
 
@@ -232,7 +256,6 @@ function layerdown(e){
     
     
     if(e.target.dataset.updown == layer_count-1){
-        console.log("too down");
         
     }
 }
