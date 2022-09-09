@@ -64,6 +64,7 @@ body{
     */  
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    
 }
 .screen{
 text-align: right;
@@ -76,12 +77,23 @@ box-shadow: inset 0px 0px 1.2vh #040404;
 padding: 1.2vh;
 display: flex;
 flex-direction: column;
+overflow-y: auto;
+
 }
 
 .column1{
 font-size: 3vh;
 min-height: 3.5vh;
 }
-.column1{
-    
+.column2{
+
 }
+
+::-webkit-scrollbar {
+    width: 1vh;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(255, 149, 0);
+    border-radius: 1vh;
+  }
